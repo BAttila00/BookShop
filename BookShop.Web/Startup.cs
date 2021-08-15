@@ -28,9 +28,10 @@ namespace BookShop.Web {
                 app.UseDeveloperExceptionPage();
             }
             else {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Error");      //Error.cshtml oldalra irányít át
             }
 
+            //a middleware-k beregisztrálása. Fontos a sorrend
             app.UseStaticFiles();
 
             app.UseRouting();

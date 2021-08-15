@@ -18,7 +18,7 @@ namespace BookShop.Web {
         public static IHostBuilder CreateHostBuilder(string[] args) {
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>();           //lefuttatja a Startup.cs osztályunkat (ez az osztály a fö osztály)
                 });
         }
     }
