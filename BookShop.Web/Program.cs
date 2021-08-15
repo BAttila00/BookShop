@@ -9,20 +9,15 @@ using System.Threading.Tasks;
 
 //Az alkalmazás belépési pontja
 
-namespace BookShop.Web
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+namespace BookShop.Web {
+    public class Program {
+        public static void Main(string[] args) {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
-        {
+        public static IHostBuilder CreateHostBuilder(string[] args) {
             return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
+                .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
                 });
         }
