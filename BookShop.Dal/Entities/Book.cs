@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace BookShop.Dal.Entities {
-    public class Books {
+    public class Book {
         public int Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
