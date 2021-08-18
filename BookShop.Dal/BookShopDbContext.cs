@@ -6,7 +6,7 @@ using System.Text;
 
 //itt definiáljuk h milyen tábálák legyenek
 namespace BookShop.Dal {
-    class BookShopDbContext : DbContext {
+    public class BookShopDbContext : DbContext {
         public BookShopDbContext() {
 
         }
