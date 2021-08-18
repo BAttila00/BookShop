@@ -1,5 +1,7 @@
+using BookShop.Dal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,6 +21,11 @@ namespace BookShop.Web {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            services.AddDbContext<BookShopDbContext>(                                                         //itt regisztáljuk be a BookShopDbContext adatbázist elérö service-t a szervizek közé
+                option => option.UseSqlServer(Configuration.GetConnectionString("BookShopDbContext"))         //itt adjuk meg egy option-ön keresztül hogy mi legyen az adatbázisunk connection stringje
+                                                                                                              //ezen connection string-et az appsettings.json-ben deklarálnunk
+            );
+
             services.AddRazorPages();
         }
 

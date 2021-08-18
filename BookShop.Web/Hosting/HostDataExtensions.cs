@@ -19,7 +19,7 @@ namespace BookShop.Web.Hosting {
         public static IHost MigrateDatabase<TContext>(this IHost host) where TContext : DbContext {
             using (var scope = host.Services.CreateScope()) {
                 var serviceProvider = scope.ServiceProvider;
-                var context = serviceProvider.GetRequiredService<TContext>();
+                var context = serviceProvider.GetRequiredService<TContext>();           //ez itt még hibát dobott (mostmár nem fog), mert nincs beregisztrálva a GetRequiredService<BookShopDbContext> a service-k közé
                 context.Database.Migrate();
             }
             return host;
