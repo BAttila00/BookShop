@@ -6,7 +6,7 @@ namespace BookShop.Dal.Migrations
     //Ati: Ez azért lett initial mert Add-Migration Initial parancsot adtunk ki, sztem initial helyett kb bmit írhattunk volna
     public partial class Initial : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+        protected override void Up(MigrationBuilder migrationBuilder)       //Ati: Ez hozza létre az adatbázisokat
         {
             migrationBuilder.CreateTable(
                 name: "Books",
@@ -29,7 +29,7 @@ namespace BookShop.Dal.Migrations
                 });
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
+        protected override void Down(MigrationBuilder migrationBuilder)        //Ati: Ez törli az adatbázisokat
         {
             migrationBuilder.DropTable(
                 name: "Books");
