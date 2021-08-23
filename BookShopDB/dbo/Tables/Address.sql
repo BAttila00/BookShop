@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Address](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Country] [nvarchar](100) NOT NULL,
+	[City] [nvarchar](100) NOT NULL,
+	[ZIP] [nvarchar](100) NOT NULL,
+	[Street] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+)
