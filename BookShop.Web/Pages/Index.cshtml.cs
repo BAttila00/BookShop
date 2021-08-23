@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookShop.Dal;
+using BookShop.Dal.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,9 +19,10 @@ namespace BookShop.Web.Pages
             _logger = logger;
         }
 
-        public void OnGet()
-        {
-
+        public IEnumerable<Book> Books { get; private set; }
+        public void OnGet([FromServices] BookShopDbContext context) {       //Ati: ez a FromServices azért kell elvileg h ne az url-böl próbálja kiszedni a context paramétert
+                                                                            //Tehát ez a beregisztrált service-k közül elkéri a BookShopDbContext service-t (startup.cs-ben regisztráltuk be a ConfigureServices metodusban)
+            Books = context.Books.ToList(); // Csak a DEMO mitt érjük el közvetlenül az adatbázist.
         }
     }
 }

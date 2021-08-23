@@ -1,10 +1,32 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Könyvek";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    @foreach (var book in Model.Books) {        //Ati: a kukac direktívával lehet c# kódot beszúrni     //Ati: A Model az ezen View alatti .cshtml.cs fájlra utal
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+            <div class="card">
+                <img class="card-img-top" src="~/images/books/covers/@(book.Id).jpg"
+                     alt="@book.Title" title="@book.Title" />
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a asp-page="Book" asp-route-id="@book.Id">@book.Title</a>
+                    </h5>
+                    <h6 class="card-subtitle">
+                        @book.Author
+                    </h6>
+                    <p class="text-right">@(book.DiscountedPrice ?? book.Price) Ft</p>
+                    <div class="card-text">
+                        <p class="lead">@book.Headline</p>
+                        <hr />
+                        <p class="small">
+                            @book.ShortDescription.Substring(0, Math.Min(300, book.ShortDescription.Length))
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
