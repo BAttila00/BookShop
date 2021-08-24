@@ -39,6 +39,8 @@ namespace BookShop.Dal {
         public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<UserProfileAddress> UserProfileAddress { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderItem> OrderItem { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {
