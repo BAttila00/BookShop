@@ -37,8 +37,8 @@ namespace BookShop.Dal {
         public virtual DbSet<BookAuthor> BookAuthor { get; set; }
         public virtual DbSet<Publisher> Publisher { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
-        public virtual DbSet<UserProfile> UserProfile { get; set; }
-        public virtual DbSet<UserProfileAddress> UserProfileAddress { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserAddress> UserAddress { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItem> OrderItem { get; set; }
 
@@ -106,7 +106,7 @@ namespace BookShop.Dal {
 
                 entity.Property(e => e.Text).IsRequired();
 
-                entity.Property(e => e.UserProfileId).HasColumnName("UserProfileID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Book)
                     .WithMany(p => p.Comment)
@@ -114,11 +114,11 @@ namespace BookShop.Dal {
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comment_oduct");
 
-                entity.HasOne(d => d.UserProfile)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Comment)
-                    .HasForeignKey(d => d.UserProfileId)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_UserProfile");
+                    .HasConstraintName("FK_Comment_User");
             });
 
             modelBuilder.Entity<Book>(entity => {
@@ -190,14 +190,14 @@ namespace BookShop.Dal {
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Rating_Book");
 
-                entity.HasOne(d => d.UserProfile)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Rating)
-                    .HasForeignKey(d => d.UserProfileId)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Rating_UserProfile");
+                    .HasConstraintName("FK_Rating_User");
             });
 
-            modelBuilder.Entity<UserProfile>(entity => {
+            modelBuilder.Entity<User>(entity => {
                 entity.Property(e => e.DisplayName)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -209,20 +209,20 @@ namespace BookShop.Dal {
                 entity.Property(e => e.MembershipId).HasColumnName("MembershipID");
             });
 
-            modelBuilder.Entity<UserProfileAddress>(entity => {
-                entity.HasKey(e => new { e.UserProfileId, e.AddressId });
+            modelBuilder.Entity<UserAddress>(entity => {
+                entity.HasKey(e => new { e.UserId, e.AddressId });
 
                 entity.HasOne(d => d.Address)
-                    .WithMany(p => p.UserProfileAddress)
+                    .WithMany(p => p.UserAddress)
                     .HasForeignKey(d => d.AddressId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserProfileAddress_Address");
+                    .HasConstraintName("FK_UserAddress_Address");
 
-                entity.HasOne(d => d.UserProfile)
-                    .WithMany(p => p.UserProfileAddress)
-                    .HasForeignKey(d => d.UserProfileId)
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserAddress)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserProfileAddress_UserProfile");
+                    .HasConstraintName("FK_UserAddress_User");
             });
 
             OnModelCreatingPartial(modelBuilder);

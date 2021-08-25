@@ -7,13 +7,14 @@ using System.Collections.Generic;
 
 namespace BookShop.Dal.Entities
 {
-    public partial class UserProfile
+    public partial class User
     {
-        public UserProfile()
+        public User()
         {
             Comment = new HashSet<Comment>();
             Rating = new HashSet<Rating>();
-            UserProfileAddress = new HashSet<UserProfileAddress>();
+            UserAddress = new HashSet<UserAddress>();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }
@@ -23,6 +24,8 @@ namespace BookShop.Dal.Entities
 
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Rating> Rating { get; set; }
-        public virtual ICollection<UserProfileAddress> UserProfileAddress { get; set; }
+        public virtual ICollection<UserAddress> UserAddress { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
     }
 }

@@ -14,7 +14,7 @@ namespace BookShop.Dal.Entities
     {
         public Address()
         {
-            UserProfileAddress = new HashSet<UserProfileAddress>();
+            UserAddress = new HashSet<UserAddress>();
         }
 
         public int Id { get; set; }
@@ -23,6 +23,6 @@ namespace BookShop.Dal.Entities
         public string Zip { get; set; }
         public string Street { get; set; }
 
-        public virtual ICollection<UserProfileAddress> UserProfileAddress { get; set; }
+        public virtual ICollection<UserAddress> UserAddress { get; set; }
     }
 }

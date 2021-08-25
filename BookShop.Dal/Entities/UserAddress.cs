@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace BookShop.Dal.Entities
 {
-    public partial class UserProfileAddress
+    public partial class UserAddress
     {
-        public int UserProfileId { get; set; }
+        public int UserId { get; set; }
         public int AddressId { get; set; }
         public int Type { get; set; }
         public bool IsDefault { get; set; }
 
         public virtual Address Address { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
+        public virtual User User { get; set; }
     }
 }
