@@ -26,14 +26,14 @@ namespace BookShop.Dal {
         /// <summary>
         /// A könyveket tároló adatbázis tábla
         /// </summary>
-        public DbSet<Book> Books { get; set; }
+        //public DbSet<Book> Books { get; set; }
 
 
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Author> Author { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
-        //public virtual DbSet<Product> Product { get; set; }       //Ez a Books
+        public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<ProductAuthor> ProductAuthor { get; set; }
         public virtual DbSet<Publisher> Publisher { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
@@ -121,7 +121,7 @@ namespace BookShop.Dal {
                     .HasConstraintName("FK_Comment_UserProfile");
             });
 
-            modelBuilder.Entity<Product>(entity => {
+            modelBuilder.Entity<Book>(entity => {
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.CoverUrl)

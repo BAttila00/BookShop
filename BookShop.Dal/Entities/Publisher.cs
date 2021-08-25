@@ -11,13 +11,13 @@ namespace BookShop.Dal.Entities
     {
         public Publisher()
         {
-            Product = new HashSet<Product>();
+            Product = new HashSet<Book>();
         }
 
         public int Id { get; set; }
         public string DisplayName { get; set; }
         public string FriendlyUrl { get; set; }
 
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Book> Product { get; set; }
     }
 }

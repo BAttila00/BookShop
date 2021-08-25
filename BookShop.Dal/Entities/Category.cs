@@ -12,7 +12,7 @@ namespace BookShop.Dal.Entities
         public Category()
         {
             InverseParentCategory = new HashSet<Category>();
-            Product = new HashSet<Product>();
+            Product = new HashSet<Book>();
         }
 
         public int Id { get; set; }
@@ -23,6 +23,6 @@ namespace BookShop.Dal.Entities
 
         public virtual Category ParentCategory { get; set; }
         public virtual ICollection<Category> InverseParentCategory { get; set; }
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Book> Product { get; set; }
     }
 }

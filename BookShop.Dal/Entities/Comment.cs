@@ -16,7 +16,7 @@ namespace BookShop.Dal.Entities
         public DateTime CreatedDate { get; set; }
         public int Type { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Book Product { get; set; }
         public virtual UserProfile UserProfile { get; set; }
     }
 }
