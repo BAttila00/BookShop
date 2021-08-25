@@ -34,7 +34,7 @@ namespace BookShop.Dal {
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Book> Book { get; set; }
-        public virtual DbSet<ProductAuthor> ProductAuthor { get; set; }
+        public virtual DbSet<BookAuthor> BookAuthor { get; set; }
         public virtual DbSet<Publisher> Publisher { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
@@ -102,17 +102,17 @@ namespace BookShop.Dal {
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.BookId).HasColumnName("BookID");
 
                 entity.Property(e => e.Text).IsRequired();
 
                 entity.Property(e => e.UserProfileId).HasColumnName("UserProfileID");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.Book)
                     .WithMany(p => p.Comment)
-                    .HasForeignKey(d => d.ProductId)
+                    .HasForeignKey(d => d.BookId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_Product");
+                    .HasConstraintName("FK_Comment_oduct");
 
                 entity.HasOne(d => d.UserProfile)
                     .WithMany(p => p.Comment)
@@ -147,32 +147,32 @@ namespace BookShop.Dal {
                     .HasMaxLength(100);
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.Book)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Product_Category");
+                    .HasConstraintName("FK_Book_Category");
 
                 entity.HasOne(d => d.Publisher)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.Book)
                     .HasForeignKey(d => d.PublisherId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Product_Publisher");
+                    .HasConstraintName("FK_Book_Publisher");
             });
 
-            modelBuilder.Entity<ProductAuthor>(entity => {
-                entity.HasKey(e => new { e.ProductId, e.AuthorId });
+            modelBuilder.Entity<BookAuthor>(entity => {
+                entity.HasKey(e => new { e.BookId, e.AuthorId });
 
                 entity.HasOne(d => d.Author)
-                    .WithMany(p => p.ProductAuthor)
+                    .WithMany(p => p.BookAuthor)
                     .HasForeignKey(d => d.AuthorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductAuthor_Author");
+                    .HasConstraintName("FK_BookAuthor_Author");
 
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductAuthor)
-                    .HasForeignKey(d => d.ProductId)
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.BookAuthor)
+                    .HasForeignKey(d => d.BookId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductAuthor_Product");
+                    .HasConstraintName("FK_BookAuthor_Book");
             });
 
             modelBuilder.Entity<Publisher>(entity => {
@@ -184,11 +184,11 @@ namespace BookShop.Dal {
             });
 
             modelBuilder.Entity<Rating>(entity => {
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.Book)
                     .WithMany(p => p.Rating)
-                    .HasForeignKey(d => d.ProductId)
+                    .HasForeignKey(d => d.BookId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Rating_Product");
+                    .HasConstraintName("FK_Rating_Book");
 
                 entity.HasOne(d => d.UserProfile)
                     .WithMany(p => p.Rating)

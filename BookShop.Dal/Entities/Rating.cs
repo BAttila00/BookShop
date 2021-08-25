@@ -11,10 +11,10 @@ namespace BookShop.Dal.Entities
     {
         public int Id { get; set; }
         public int Value { get; set; }
-        public int ProductId { get; set; }
+        public int BookId { get; set; }
         public int UserProfileId { get; set; }
 
-        public virtual Book Product { get; set; }
+        public virtual Book Book { get; set; }
         public virtual UserProfile UserProfile { get; set; }
     }
 }

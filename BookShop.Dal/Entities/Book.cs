@@ -12,7 +12,7 @@ namespace BookShop.Dal.Entities
         public Book()
         {
             Comment = new HashSet<Comment>();
-            ProductAuthor = new HashSet<ProductAuthor>();
+            BookAuthor = new HashSet<BookAuthor>();
             Rating = new HashSet<Rating>();
         }
 
@@ -35,7 +35,7 @@ namespace BookShop.Dal.Entities
         public virtual Category Category { get; set; }
         public virtual Publisher Publisher { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
-        public virtual ICollection<ProductAuthor> ProductAuthor { get; set; }
+        public virtual ICollection<BookAuthor> BookAuthor { get; set; }
         public virtual ICollection<Rating> Rating { get; set; }
     }
 }

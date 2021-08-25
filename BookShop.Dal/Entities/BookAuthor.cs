@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace BookShop.Dal.Entities
 {
-    public partial class ProductAuthor
+    public partial class BookAuthor
     {
-        public int ProductId { get; set; }
+        public int BookId { get; set; }
         public int AuthorId { get; set; }
 
         public virtual Author Author { get; set; }
-        public virtual Book Product { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

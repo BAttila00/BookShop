@@ -11,7 +11,7 @@ namespace BookShop.Dal.Entities
     {
         public Author()
         {
-            ProductAuthor = new HashSet<ProductAuthor>();
+            BookAuthor = new HashSet<BookAuthor>();
         }
 
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace BookShop.Dal.Entities
         public string PhotoUrl { get; set; }
         public string About { get; set; }
 
-        public virtual ICollection<ProductAuthor> ProductAuthor { get; set; }
+        public virtual ICollection<BookAuthor> BookAuthor { get; set; }
     }
 }
