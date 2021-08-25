@@ -1,4 +1,5 @@
 ﻿using BookShop.Dal.Entities;
+using BookShop.Dal.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -226,6 +227,14 @@ namespace BookShop.Dal {
             });
 
             OnModelCreatingPartial(modelBuilder);
+
+            //Ati: Ezekkel generáljuk le a tesztadatainkat az adatbázisba
+            //Ezek csak lefuttatják a konfigurációs fájljainkat ahol felvettük az adatokat.
+            modelBuilder.ApplyConfiguration(new AuthorEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new PublisherEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new BookEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new BookAuthorEntityConfiguration());
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
