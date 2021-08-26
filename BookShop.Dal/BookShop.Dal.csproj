@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210819202649_Initial.cs" />
+    <Compile Remove="Migrations\20210819202649_Initial.Designer.cs" />
     <Compile Remove="Migrations\20210822203830_InitialSeed.cs" />
     <Compile Remove="Migrations\20210822203830_InitialSeed.Designer.cs" />
   </ItemGroup>
@@ -19,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="EntityConfiguration\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
