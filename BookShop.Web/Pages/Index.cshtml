@@ -22,7 +22,7 @@
                         <p class="lead">@book.Title</p>
                         <hr />
                         <p class="small">
-                            @book.ShortDescription.Substring(0, Math.Min(300, book.ShortDescription.Length))
+                            @book.ShortDescription?.Substring(0, Math.Min(300, book.ShortDescription.Length))
                         </p>
                     </div>
                 </div>
