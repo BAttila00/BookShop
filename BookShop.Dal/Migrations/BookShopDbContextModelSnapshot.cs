@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+//Ati: Ez szerintem az adatbázis jelenlegi adott állapotát tükrözi.
+
 namespace BookShop.Dal.Migrations
 {
     [DbContext(typeof(BookShopDbContext))]
