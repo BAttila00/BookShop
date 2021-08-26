@@ -87,7 +87,6 @@ namespace BookShop.Dal {
                     .HasMaxLength(50);
 
                 entity.Property(e => e.FriendlyUrl)
-                    .IsRequired()
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Order).HasMaxLength(20);
@@ -126,7 +125,6 @@ namespace BookShop.Dal {
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
                 entity.Property(e => e.CoverUrl)
-                    .IsRequired()
                     .HasMaxLength(100);
 
                 entity.Property(e => e.CreatedDate)
@@ -137,14 +135,12 @@ namespace BookShop.Dal {
 
                 entity.Property(e => e.PublisherId).HasColumnName("PublisherID");
 
-                entity.Property(e => e.ShortDescription).IsRequired();
+                //entity.Property(e => e.ShortDescription).IsRequired();
 
                 entity.Property(e => e.Subtitle)
-                    .IsRequired()
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Title)
-                    .IsRequired()
                     .HasMaxLength(100);
 
                 entity.HasOne(d => d.Category)
