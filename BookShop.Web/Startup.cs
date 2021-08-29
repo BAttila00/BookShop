@@ -29,6 +29,8 @@ namespace BookShop.Web {
 
             services.AddScoped<BookService>();
 
+            services.AddScoped<CategoryService>();
+
             services.AddRazorPages();
         }
 
