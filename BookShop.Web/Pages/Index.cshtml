@@ -6,7 +6,7 @@
 
 <div class="row">
     @foreach (var book in Model.Books) {        //Ati: a kukac direktívával lehet c# kódot beszúrni     //Ati: A Model az ezen View alatti .cshtml.cs fájlra utal
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+        <div class="col-sm-6 col-lg-4 mb-3">    @*ide még be lehetne tenni egy "d-flex" tag-et ami egy szinten tartaná a könyv dobozkák alját*@
             <div class="card">
                 <img class="card-img-top" src="~/images/books/covers/@(book.Id).jpg"
                      alt="@book.Title" title="@book.Title" />
