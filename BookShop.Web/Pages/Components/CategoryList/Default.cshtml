@@ -1,0 +1,16 @@
+﻿@* Itt fontosak a pontos mappaelnevezések. Összhanngban kell lennie ennek a mappának, a ViewComponents mappának, a CategoryListViewComponent.cs fájlnak,
+    és a Layout.cshtml-ben ennek a hívásnak: @await Component.InvokeAsync("CategoryList")  *@
+
+
+
+@model IEnumerable<BookShop.Dal.Dto.CategoryHeader>
+<div class="categories">
+    @foreach (var category in Model) {
+        <div class="category level-@category.Level">
+            <a asp-page="Index" asp-route-categoryId="@category.Id">        @*Ati: Beletesz egy linket, úgy h átirányítson az index-re és közben beleteszi az url-be a categoria ID-ját*@
+                                                                            @*A linkben a categoria neve jelenjen meg.*@
+                @category.Name                                              
+            </a>
+        </div>
+    }
+</div>

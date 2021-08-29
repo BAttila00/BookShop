@@ -19,7 +19,7 @@ namespace BookShop.Dal.Services {
             .OrderBy(c => c.Order)
             .Select(c => new CategoryHeader {
                 Id = c.Id,
-                Level = c.Order.Split(".", StringSplitOptions.None).Count(),        //Ati: Ezt nem nagyon értem h  i ez a level, de sztem mind1 is.
+                Level = c.Order.Split(".", StringSplitOptions.None).Count(),        //Ati: Ezt nem nagyon értem h mi ez a level, de sztem mind1 is.
                 Name = c.DisplayName
             }).ToListAsync();
             return allCategories;

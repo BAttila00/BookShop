@@ -35,8 +35,14 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()               @*Ati: Ide helyettesítödik be az adott oldal kinézete. (mert ugye a _layout csak a keret)*@
+        <main role="main" class="row">
+            <div class="col-md-3">
+                @await Component.InvokeAsync("CategoryList")        @*Ez meghívja a CategoryListViewComponent.cs-ben (ViewComponents mappa) az InvokeAsync-ot*@
+                                                                    @*Hogy találja meg? A mappaelnevezések és fájlelnevezések alapján. *@
+            </div>
+            <div class="col-md-9">
+                @RenderBody()               @*Ati: Ide helyettesítödik be az adott oldal kinézete. (mert ugye a _layout csak a keret)*@
+            </div>
         </main>
     </div>
 
