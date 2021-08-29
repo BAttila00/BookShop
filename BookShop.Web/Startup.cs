@@ -1,4 +1,5 @@
 using BookShop.Dal;
+using BookShop.Dal.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,8 @@ namespace BookShop.Web {
                 option => option.UseSqlServer(Configuration.GetConnectionString("BookShopDbContext"))         //itt adjuk meg egy option-ön keresztül hogy mi legyen az adatbázisunk connection stringje
                                                                                                               //ezen connection string-et az appsettings.json-ben deklarálnunk
             );
+
+            services.AddScoped<BookService>();
 
             services.AddRazorPages();
         }

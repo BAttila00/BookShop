@@ -15,9 +15,9 @@
                         <a asp-page="Book" asp-route-id="@book.Id">@book.Title</a>
                     </h5>
                     <h6 class="card-subtitle">
-                        @book.BookAuthor
+                        @String.Join(", ", book.AuthorNames)
                     </h6>
-                    <p class="text-right">@(book.DiscountPrice ?? book.Price) Ft</p>
+                    <p class="text-right">@(book.DiscountedPrice ?? book.Price) Ft</p>
                     <div class="card-text">
                         <p class="lead">@book.Title</p>
                         <hr />
