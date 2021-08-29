@@ -71,14 +71,14 @@ body {
 }
 
 /* Kategória lista */
-.category.level-0 {
+.categories .category.level-1 {
     padding-left: 0;
 }
 
-.category.level-1 {
+.categories .category.level-2 {
     padding-left: 10px;
 }
 
-.category.level-2 {
+.categories .category.level-3 {
     padding-left: 20px;
 }
