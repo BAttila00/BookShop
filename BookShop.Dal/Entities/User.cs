@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BookShop.Dal.Entities
 {
-    public partial class User
+    public partial class User : IdentityUser<int>
     {
         public User()
         {
@@ -17,9 +18,7 @@ namespace BookShop.Dal.Entities
             Orders = new HashSet<Order>();
         }
 
-        public int Id { get; set; }
         public string DisplayName { get; set; }
-        public string Email { get; set; }
         public Guid MembershipId { get; set; }
 
         public virtual ICollection<Comment> Comment { get; set; }
