@@ -1,5 +1,7 @@
 ﻿using BookShop.Dal.Entities;
 using BookShop.Dal.EntityConfiguration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ using System.Text;
 //Viszont  miután betettük ide az "Ati: itt generálunk könyveket" komment alatti részt és kiadtuk az "Add-Migration InitialSeed" parancsot akkor létrejön a ............. fájl és ebben lesz azon rész
 //ahol a Books táblát feltöltjük adatokkal.
 namespace BookShop.Dal {
-    public partial class BookShopDbContext : DbContext {
+    public partial class BookShopDbContext : IdentityDbContext<User, IdentityRole<int>, int> {              //Ati: Ennek a paramétere azért int mert az Id típusa int kell most legyen (a User-ben).
         public BookShopDbContext() {
 
         }
@@ -38,7 +40,6 @@ namespace BookShop.Dal {
         public virtual DbSet<BookAuthor> BookAuthor { get; set; }
         public virtual DbSet<Publisher> Publisher { get; set; }
         public virtual DbSet<Rating> Rating { get; set; }
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItem> OrderItem { get; set; }
@@ -195,13 +196,13 @@ namespace BookShop.Dal {
             });
 
             modelBuilder.Entity<User>(entity => {
+
+                entity.ToTable("User");
+
                 entity.Property(e => e.DisplayName)
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(100);
 
                 entity.Property(e => e.MembershipId).HasColumnName("MembershipID");
             });

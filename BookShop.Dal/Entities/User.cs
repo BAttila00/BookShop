@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace BookShop.Dal.Entities
 {
-    public partial class User : IdentityUser<int>
+    public partial class User : IdentityUser<int>       //Ati: Ennek a paramétere azért int mert az Id típusa int kell most legyen.
     {
         public User()
         {
