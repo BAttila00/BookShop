@@ -53,6 +53,9 @@ namespace BookShop.Dal {
 
         //Ati: itt generálunk könyveket
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Address>(entity => {
                 entity.Property(e => e.City)
                     .IsRequired()
