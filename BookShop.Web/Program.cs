@@ -13,8 +13,8 @@ using BookShop.Dal;
 
 namespace BookShop.Web {
     public class Program {
-        public static void Main(string[] args) {
-            CreateHostBuilder(args).Build().MigrateDatabase<BookShopDbContext>().Run();
+        public static async Task Main(string[] args) {
+            (await CreateHostBuilder(args).Build().MigrateDatabaseAsync<BookShopDbContext>()).Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
