@@ -4,36 +4,39 @@
     ViewData["Title"] = "Könyvek";
 }
 
-<div class="col-md-3">
-    @await Component.InvokeAsync("CategoryList")        @*Ez meghívja a CategoryListViewComponent.cs-ben (ViewComponents mappa) az InvokeAsync-ot*@
-                                                        @*Hogy találja meg? A mappaelnevezések és fájlelnevezések alapján. *@
-</div>
-<div class="col-md-9">
-    <div class="row">
-        @foreach (var book in Model.Books) {        //Ati: a kukac direktívával lehet c# kódot beszúrni     //Ati: A Model az ezen View alatti .cshtml.cs fájlra utal
-            <div class="col-sm-6 col-lg-4 mb-3">    @*ide még be lehetne tenni egy "d-flex" tag-et ami egy szinten tartaná a könyv dobozkák alját*@
-                <div class="card">
-                    <img class="card-img-top" src="~/images/books/covers/@(book.Id).jpg"
-                         alt="@book.Title" title="@book.Title" />
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a asp-page="Book" asp-route-id="@book.Id">@book.Title</a>
-                        </h5>
-                        <h6 class="card-subtitle">
-                            @String.Join(", ", book.AuthorNames)
-                        </h6>
-                        <p class="text-right">@(book.DiscountedPrice ?? book.Price) Ft</p>
-                        <div class="card-text">
-                            <p class="lead">@book.Title</p>
-                            <hr />
-                            <p class="small">
-                                @book.ShortDescription?.Substring(0, Math.Min(300, book.ShortDescription.Length))
-                            </p>
+<div class="row">
+    <div class="col-md-3">
+        @await Component.InvokeAsync("CategoryList")        @*Ez meghívja a CategoryListViewComponent.cs-ben (ViewComponents mappa) az InvokeAsync-ot*@
+        @*Hogy találja meg? A mappaelnevezések és fájlelnevezések alapján. *@
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var book in Model.Books) {        //Ati: a kukac direktívával lehet c# kódot beszúrni     //Ati: A Model az ezen View alatti .cshtml.cs fájlra utal
+                <div class="col-sm-6 col-lg-4 mb-3">
+                    @*ide még be lehetne tenni egy "d-flex" tag-et ami egy szinten tartaná a könyv dobozkák alját*@
+                    <div class="card">
+                        <img class="card-img-top" src="~/images/books/covers/@(book.Id).jpg"
+                             alt="@book.Title" title="@book.Title" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a asp-page="Book" asp-route-id="@book.Id">@book.Title</a>
+                            </h5>
+                            <h6 class="card-subtitle">
+                                @String.Join(", ", book.AuthorNames)
+                            </h6>
+                            <p class="text-right">@(book.DiscountedPrice ?? book.Price) Ft</p>
+                            <div class="card-text">
+                                <p class="lead">@book.Title</p>
+                                <hr />
+                                <p class="small">
+                                    @book.ShortDescription?.Substring(0, Math.Min(300, book.ShortDescription.Length))
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
 
+    </div>
 </div>
