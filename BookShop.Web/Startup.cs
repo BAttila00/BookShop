@@ -1,7 +1,5 @@
 using BookShop.Dal;
 using BookShop.Dal.Entities;
-using BookShop.Dal.SeedInterfaces;
-using BookShop.Dal.SeedService;
 using BookShop.Dal.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,9 +37,6 @@ namespace BookShop.Web {
             services.AddScoped<BookService>();
 
             services.AddScoped<CategoryService>();
-
-            services.AddScoped<IRoleSeedService, RoleSeedService>();
-            services.AddScoped<IUserSeedService, UserSeedService>();
 
             services.AddRazorPages();
         }
