@@ -3,9 +3,11 @@ using BookShop.Dal.Entities;
 using BookShop.Dal.SeedInterfaces;
 using BookShop.Dal.SeedService;
 using BookShop.Dal.Services;
+using BookShop.Web.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +37,9 @@ namespace BookShop.Web {
             services.AddIdentity<User, IdentityRole<int>>()
                 .AddEntityFrameworkStores<BookShopDbContext>()
                 .AddDefaultTokenProviders();                            //Ati: Jegyzet (5. old.): alapértelmezett token szolgáltatók a különbözö véletlenszerü tokenek generálásáért felelösek....
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));  //Ati: A MailSettings.cs fájlba felolvassa a appsettings.Development.json-ben a MailSettings section alatt beállított értékeket
+            services.AddTransient<IEmailSender, Services.EmailSender>();                 //Ati: Itt mondjuk meg h az IEmailSender interfész hívásokat (pl a Register.cshtml.cs-ben) a Services.EmailSender szolgálja ki
 
             services.AddScoped<BookService>();
 
