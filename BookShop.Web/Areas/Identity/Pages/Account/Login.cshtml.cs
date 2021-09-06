@@ -80,6 +80,9 @@ namespace BookShop.Web.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                //var user = await _userManager.FindByNameAsync(Input.UserName);
+                //bool isEmailConfirmed = user.EmailConfirmed;
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
