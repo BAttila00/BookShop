@@ -35,7 +35,7 @@ namespace BookShop.Web.Services {
 
             emailMessage.To.Add(MailboxAddress.Parse(email));
 
-            var builder = new BodyBuilder { HtmlBody = htmlMessage };       //Att: Ezzel tudnánk pl attachment-et (meg sok mást) hozzáadni az email-hez
+            var builder = new BodyBuilder { HtmlBody = htmlMessage };       //Ati: Ezzel tudnánk pl attachment-et (meg sok mást) hozzáadni az email-hez
 
             emailMessage.Body = builder.ToMessageBody();
             using (var smtp = new SmtpClient()) {

@@ -34,7 +34,9 @@ namespace BookShop.Web {
                                                                                                               //ezen connection string-et az appsettings.json-ben deklarálnunk
             );
 
-            services.AddIdentity<User, IdentityRole<int>>()
+            services.AddIdentity<User, IdentityRole<int>>(opt => {
+                opt.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<BookShopDbContext>()
                 .AddDefaultTokenProviders();                            //Ati: Jegyzet (5. old.): alapértelmezett token szolgáltatók a különbözö véletlenszerü tokenek generálásáért felelösek....
 
