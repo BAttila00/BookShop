@@ -1,0 +1,37 @@
+﻿@model BookShop.Web.ViewComponents.PagerViewComponent.PagerSpecification
+
+@if (Model.TotalPages > 1) {
+    <nav>
+        <ul class="pagination justify-content-center">
+            @* Első oldalra link *@
+            @if (Model.PageNumber > 1) {
+                <li class="page-item">
+                    <a asp-route-pageNumber="1" class="page-link">
+                        <span>&laquo;</span>
+                    </a>
+                </li>
+            }
+            @* Középső részen megjelenő linkek *@
+            @for (var pageNumber = Math.Max(1, Model.PageNumber - Model.PagesToShow); pageNumber <= Math.Min(Model.TotalPages, Model.PageNumber + Model.PagesToShow); pageNumber++) {
+                @if (Model.PageNumber == pageNumber) {
+                    <li class="page-item active">
+                        <a class="page-link">@pageNumber</a>
+                    </li>
+                }
+                else {
+                    <li class="page-item">
+                        <a asp-route-pageNumber="@pageNumber" class="page-link">@pageNumber</a>
+                    </li>
+                }
+            }
+            @* Utolsó oldalra link *@
+            @if (Model.PageNumber < Model.TotalPages) {
+                <li class="page-item">
+                    <a asp-route-pageNumbe="@Model.TotalPages" class="page-link">
+                        <span>&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

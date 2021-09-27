@@ -10,44 +10,55 @@
         @*Hogy találja meg? A mappaelnevezések és fájlelnevezések alapján. *@
         <vc:category-list></vc:category-list>
     </div>
+
     <div class="col-md-9">
-        <div class="row">
-            @foreach (var book in Model.Books.Results) {           //Ati: a kukac direktívával lehet c# kódot beszúrni     //Ati: A Model az ezen View alatti .cshtml.cs fájlra utal
-            <div class="col-lg-6 mb-3 d-flex">
-                @*ide még be lehetne tenni egy "d-flex" tag-et ami egy szinten tartaná a könyv dobozkák alját*@
-                <div class="card w-100">
-                    <div class="card-header">
-                        <a class="text-uppercase one-row" asp-page="Book" asp-route-id="@book.Id">@book.Title</a>
-                    </div>
-                    <div class="card-body p-3">
-                        <div class="d-flex">
-                            <div class="pr-3">
-                                <a asp-page="Book" asp-route-id="@book.Id">
-                                    <img src="~/images/books/covers/@(book.Id).jpg" alt="@book.Title" title="@book.Title" />
-                                </a>
-                            </div>
-                            <div class="w-100 d-flex flex-wrap">
-                                <p class="font-weight-bold">
-                                    @String.Join(", ", book.AuthorNames)
-                                </p>
-                                <p>@book.Subtitle</p>
-                                <p class="w-100 align-self-end text-right mt-2 mb-0">
-                                    @if (book.DiscountedPrice.HasValue) {
-                                        <span class="text-muted old-price">@book.Price.ToString("N0")&nbsp;Ft</span>
-                                        <span class="text-primary">@book.DiscountedPrice.Value.ToString("N0")&nbsp;Ft</span>    //Ati: ToString("N0"): ezres tagolás    &nbsp: non braking space: azaz ne tudjon új sorba törni    
-                                    }
-                                    else {
-                                        <text>@book.Price.ToString("N0")&nbsp;Ft</text>
-                                    }
-                                </p>
-                            </div>
-                        </div>
-                        <p class="small mt-2 mb-0">
-                            @book.ShortDescription?.Substring(0, Math.Min(300, book.ShortDescription.Length))
-                        </p>
-                    </div>
+        <div class="card text-center border-0">
+            <div class="card-body">
+                <div class="mb-1">
+                    @Model.Books.AllResultsCount találat
                 </div>
             </div>
+            @*https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components?view=aspnetcore-5.0#invoking-a-view-component*@
+            @await Component.InvokeAsync("Pager", new { pageSize = Model.Books.PageSize, pageNumber = Model.Books.PageNumber, allResultsCount = Model.Books.AllResultsCount, pagesToShow = 3 })
+        </div>
+
+        <div class="row">
+            @foreach (var book in Model.Books.Results) {           //Ati: a kukac direktívával lehet c# kódot beszúrni     //Ati: A Model az ezen View alatti .cshtml.cs fájlra utal
+                <div class="col-lg-6 mb-3 d-flex">
+                    @*ide még be lehetne tenni egy "d-flex" tag-et ami egy szinten tartaná a könyv dobozkák alját*@
+                    <div class="card w-100">
+                        <div class="card-header">
+                            <a class="text-uppercase one-row" asp-page="Book" asp-route-id="@book.Id">@book.Title</a>
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="d-flex">
+                                <div class="pr-3">
+                                    <a asp-page="Book" asp-route-id="@book.Id">
+                                        <img src="~/images/books/covers/@(book.Id).jpg" alt="@book.Title" title="@book.Title" />
+                                    </a>
+                                </div>
+                                <div class="w-100 d-flex flex-wrap">
+                                    <p class="font-weight-bold">
+                                        @String.Join(", ", book.AuthorNames)
+                                    </p>
+                                    <p>@book.Subtitle</p>
+                                    <p class="w-100 align-self-end text-right mt-2 mb-0">
+                                        @if (book.DiscountedPrice.HasValue) {
+                                            <span class="text-muted old-price">@book.Price.ToString("N0")&nbsp;Ft</span>
+                                            <span class="text-primary">@book.DiscountedPrice.Value.ToString("N0")&nbsp;Ft</span> //Ati: ToString("N0"): ezres tagolás    &nbsp: non braking space: azaz ne tudjon új sorba törni
+                                        }
+                                        else {
+                                            <text>@book.Price.ToString("N0")&nbsp;Ft</text>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="small mt-2 mb-0">
+                                @book.ShortDescription?.Substring(0, Math.Min(300, book.ShortDescription.Length))
+                            </p>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     </div>
