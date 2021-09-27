@@ -1,4 +1,5 @@
 ﻿using BookShop.Dal.Dto;
+using BookShop.Dal.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace BookShop.Dal.Services {
             DbContext = dbContext;
         }
 
+        /*
         //TODO: Aszinkron is megy?
         public PagedResult<BookHeader> GetBooks(int? _pagenumber = 1) {     //Ati: ezzel azt érjük el h paraméter nélkül is hívható lesz ez a függvény.
 
@@ -50,6 +52,46 @@ namespace BookShop.Dal.Services {
                 AllResultsCount = allResultsCount,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
+                Results = books
+            };
+        }
+        */
+
+        public PagedResult<BookHeader> GetBooks(PagerSpecification specification = null) {     //Ati: ezzel azt érjük el h paraméter nélkül is hívható lesz ez a függvény.
+
+            specification ??= new PagerSpecification();                                         //ha specification null akkor hozzunk létre egyet
+            if (specification.PageSize <= 0)
+                specification.PageSize = 5;
+            if (specification.PageNumber <= 0)
+                specification.PageNumber = 1;
+
+            var books = DbContext.Book.Select(b => new BookHeader {             //itt hoz létre Book entitásból BookHeader típzusú "entitást".
+                AuthorNames = b.BookAuthor.Select(ba => ba.Author.DisplayName).ToList(),
+                AuthorIds = b.BookAuthor.Select(ba => ba.AuthorId).ToList(),
+                AverageRating = b.Rating.Select(r => r.Value).Average(),
+                CategoryId = b.CategoryId,
+                DiscountedPrice = b.DiscountPrice,
+                Id = b.Id,
+                NumberOfComments = b.Comment.Count(),
+                PageNumber = b.PageNumber,
+                NumberOfRatings = b.Rating.Count(),
+                Price = b.Price,
+                PublisherName = b.Publisher.DisplayName,
+                PublisherId = b.PublisherId,
+                PublishYear = b.PublishYear,
+                ShortDescription = b.ShortDescription,
+                Subtitle = b.Subtitle,
+                Title = b.Title
+            }).ToList();
+
+            int allResultsCount = books.Count();
+
+            books = books.Skip((specification.PageNumber - 1) * specification.PageSize).Take(specification.PageSize).ToList();
+
+            return new PagedResult<BookHeader> {
+                AllResultsCount = allResultsCount,
+                PageNumber = specification.PageNumber,
+                PageSize = specification.PageSize,
                 Results = books
             };
         }
