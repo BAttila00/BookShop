@@ -21,10 +21,11 @@ namespace BookShop.Web.Pages
             _logger = logger;
         }
 
-        public IEnumerable<BookHeader> Books { get; private set; }
-        public void OnGet([FromServices] BookService bookService) {       //Ati: ez a FromServices azért kell elvileg h ne az url-böl próbálja kiszedni a context paramétert
-                                                                            //Tehát ez a beregisztrált service-k közül elkéri a BookShopDbContext service-t (startup.cs-ben regisztráltuk be a ConfigureServices metodusban)
-            Books = bookService.GetBooks(); // Csak a DEMO mitt érjük el közvetlenül az adatbázist.
+        public PagedResult<BookHeader> Books { get; private set; }
+        public void OnGet([FromServices] BookService bookService, int? pageNumber) {       //Ati: ez a FromServices azért kell elvileg h ne az url-böl próbálja kiszedni a context paramétert
+                                                                                           //Tehát ez a beregisztrált service-k közül elkéri a BookShopDbContext service-t (startup.cs-ben regisztráltuk be a ConfigureServices metodusban)
+                                                                                           //Ati: Az url-ből ki fogja szedni a pageNumber paramétert (pl ha ez az url http://localhost:6211/?pageNumber=3)
+            Books = bookService.GetBooks(pageNumber);
         }
     }
 }

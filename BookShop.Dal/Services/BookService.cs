@@ -17,7 +17,12 @@ namespace BookShop.Dal.Services {
         }
 
         //TODO: Aszinkron is megy?
-        public IEnumerable<BookHeader> GetBooks() {
+        public PagedResult<BookHeader> GetBooks(int? _pagenumber = 1) {     //Ati: ezzel azt érjük el h paraméter nélkül is hívható lesz ez a függvény.
+
+            _pagenumber ??= 1;          //Ati: ha _pagenumber null akkor adjunk neki értékül 1-et
+            int pageNumber = _pagenumber.Value;
+            int pageSize = 5;
+
             var books = DbContext.Book.Select(b => new BookHeader {             //itt hoz létre Book entitásból BookHeader típzusú "entitást".
                 AuthorNames = b.BookAuthor.Select(ba => ba.Author.DisplayName).ToList(),
                 AuthorIds = b.BookAuthor.Select(ba => ba.AuthorId).ToList(),
@@ -37,7 +42,16 @@ namespace BookShop.Dal.Services {
                 Title = b.Title
             }).ToList();
 
-            return books;
+            int allResultsCount = books.Count();
+
+            books = books.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            return new PagedResult<BookHeader> {
+                AllResultsCount = allResultsCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Results = books
+            };
         }
     }
 }
