@@ -8,7 +8,8 @@
     <div class="col-md-3">
         @await Component.InvokeAsync("CategoryList")             @*Ez meghívja a CategoryListViewComponent.cs-ben (ViewComponents mappa) az InvokeAsync-ot*@
         @*Hogy találja meg? A mappaelnevezések és fájlelnevezések alapján. *@
-        <vc:category-list></vc:category-list>
+        @*<vc:category-list></vc:category-list>*@           @*itt ez nem csinál semmit. meg lehetne így is oldani (taghelper-ekkel (lásd 4. pdf 9. old), de a fenti megoldás is jó)*@
+                                                            @*https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components?view=aspnetcore-5.0#invoking-a-view-component-as-a-tag-helper*@
     </div>
 
     <div class="col-md-9">
