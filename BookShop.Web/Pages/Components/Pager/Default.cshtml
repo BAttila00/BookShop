@@ -4,15 +4,23 @@
 @if (Model.TotalPages > 1) {
     <nav>
         <ul class="pagination justify-content-center">
-            @* Első oldalra link *@
+            @* Első oldalra link (dupla nyilacska)*@
             @if (Model.PageNumber > 1) {
                 <li class="page-item">
                     <a asp-route-pageNumber="1" class="page-link">
-                        <span>&laquo;</span>
+                        <span>&lArr;</span>                                 @*character szimbólum kódok: https://oinam.github.io/entities/*@
                     </a>
                 </li>
             }
-            @* Középső részen megjelenő linkek *@
+            @* Elözö oldalra link (szimpla nyilacska)*@
+            @if (Model.PageNumber > 1) {
+                <li class="page-item">
+                    <a asp-route-pageNumber="@(Model.PageNumber - 1)" class="page-link">
+                        <span>&larr;</span>
+                    </a>
+                </li>
+            }
+            @* Középső részen megjelenő linkek (oldal számok)*@
             @for (var pageNumber = Math.Max(1, Model.PageNumber - Model.PagesToShow); pageNumber <= Math.Min(Model.TotalPages, Model.PageNumber + Model.PagesToShow); pageNumber++) {
                 @if (Model.PageNumber == pageNumber) {
                     <li class="page-item active">
@@ -25,11 +33,19 @@
                     </li>
                 }
             }
-            @* Utolsó oldalra link *@
+            @* Következö oldalra link (szimpla nyilacska)*@
             @if (Model.PageNumber < Model.TotalPages) {
                 <li class="page-item">
-                    <a asp-route-pageNumbe="@Model.TotalPages" class="page-link">
-                        <span>&raquo;</span>
+                    <a asp-route-pageNumber="@(Model.PageNumber + 1)" class="page-link">
+                        <span>&rarr;</span>
+                    </a>
+                </li>
+            }
+            @* Utolsó oldalra link (dupla nyilacska)*@
+            @if (Model.PageNumber < Model.TotalPages) {
+                <li class="page-item">
+                    <a asp-route-pageNumber="@Model.TotalPages" class="page-link">
+                        <span>&rArr;</span>
                     </a>
                 </li>
             }
