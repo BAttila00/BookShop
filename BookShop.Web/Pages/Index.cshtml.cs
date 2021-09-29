@@ -25,11 +25,14 @@ namespace BookShop.Web.Pages
         [BindProperty(SupportsGet = true)]                              //Ati: Ha talál az url-ben "PageNumber" illetve "PageSize" paramétereket azokat automatikusan kiveszi az url-böl és betölti ebbe a mezöbe
         public PagerSpecification Specification { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public BooksSpecification BooksSpecification { get; set; }
+
         public PagedResult<BookHeader> Books { get; private set; }
         public void OnGet([FromServices] BookService bookService) {       //Ati: ez a FromServices azért kell elvileg h ne az url-böl próbálja kiszedni a context paramétert
                                                                                            //Tehát ez a beregisztrált service-k közül elkéri a BookShopDbContext service-t (startup.cs-ben regisztráltuk be a ConfigureServices metodusban)
                                                                                            //Ati: Az url-ből ki fogja szedni a pageNumber paramétert (pl ha ez az url http://localhost:6211/?pageNumber=3)
-            Books = bookService.GetBooks(Specification);
+            Books = bookService.GetBooks(Specification, BooksSpecification);
         }
     }
 }

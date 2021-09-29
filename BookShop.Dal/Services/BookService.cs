@@ -1,4 +1,5 @@
 ﻿using BookShop.Dal.Dto;
+using BookShop.Dal.Entities;
 using BookShop.Dal.Specifications;
 using System;
 using System.Collections.Generic;
@@ -57,7 +58,8 @@ namespace BookShop.Dal.Services {
         }
         */
 
-        public PagedResult<BookHeader> GetBooks(PagerSpecification specification = null) {     //Ati: ezzel azt érjük el h paraméter nélkül is hívható lesz ez a függvény.
+        public PagedResult<BookHeader> GetBooks(PagerSpecification specification = null,     //Ati: ezzel azt érjük el h paraméter nélkül is hívható lesz ez a függvény.
+            BooksSpecification booksSpecification = null) {
 
             specification ??= new PagerSpecification();                                         //ha specification null akkor hozzunk létre egyet
             if (specification.PageSize <= 0)
@@ -65,7 +67,29 @@ namespace BookShop.Dal.Services {
             if (specification.PageNumber <= 0)
                 specification.PageNumber = 1;
 
-            var books = DbContext.Book.Select(b => new BookHeader {             //itt hoz létre Book entitásból BookHeader típzusú "entitást".
+            IQueryable<Book> query = DbContext.Book;
+
+            if(booksSpecification != null) {
+                //Szürés
+                if (booksSpecification.AuthorId.HasValue)
+                    query = query.Where(b => b.BookAuthor.Any(ba => ba.AuthorId == booksSpecification.AuthorId));
+                if (!string.IsNullOrWhiteSpace(booksSpecification?.Title))
+                    query = query.Where(b => b.Title.Contains(booksSpecification.Title));
+                if (booksSpecification.CategoryId.HasValue)
+                    query = query.Where(b => b.CategoryId == booksSpecification.CategoryId || b.Category.ParentCategoryId == booksSpecification.CategoryId);
+
+                //rendezés
+                switch (booksSpecification.Order) {
+                    case BooksSpecification.BookOrder.TitleAscending:
+                        query = query.OrderBy(b => b.Title);
+                        break;
+                    case BooksSpecification.BookOrder.TitleDescending:
+                        query = query.OrderByDescending(b => b.Title);
+                        break;
+                }
+            }
+
+            var books = query.Select(b => new BookHeader {             //itt hoz létre Book entitásból BookHeader típzusú "entitást".
                 AuthorNames = b.BookAuthor.Select(ba => ba.Author.DisplayName).ToList(),
                 AuthorIds = b.BookAuthor.Select(ba => ba.AuthorId).ToList(),
                 AverageRating = b.Rating.Select(r => r.Value).Average(),
@@ -86,6 +110,7 @@ namespace BookShop.Dal.Services {
 
             int allResultsCount = books.Count();
 
+            //csak azon könyveket tartsuk meg amelyek az adott oldalon vannak.
             books = books.Skip((specification.PageNumber - 1) * specification.PageSize).Take(specification.PageSize).ToList();
 
             return new PagedResult<BookHeader> {
