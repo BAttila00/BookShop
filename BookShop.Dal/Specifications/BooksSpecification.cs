@@ -4,6 +4,8 @@ using System.Text;
 
 namespace BookShop.Dal.Specifications {
     public class BooksSpecification{
+
+        //ezekre az attribútumokra fogok tudni szűrni a könyveknél
         public string Title { get; set; }
         public int? CategoryId { get; set; }
         public int? AuthorId { get; set; }

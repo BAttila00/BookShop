@@ -61,6 +61,7 @@ namespace BookShop.Dal.Services {
         public PagedResult<BookHeader> GetBooks(PagerSpecification specification = null,     //Ati: ezzel azt érjük el h paraméter nélkül is hívható lesz ez a függvény.
             BooksSpecification booksSpecification = null) {
 
+            //TODO: ha pl egy kategoriára rászűrök akkor nem működik megfelelően a lapozás
             specification ??= new PagerSpecification();                                         //ha specification null akkor hozzunk létre egyet
             if (specification.PageSize <= 0)
                 specification.PageSize = 5;
