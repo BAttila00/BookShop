@@ -3,6 +3,7 @@ using BookShop.Dal.Entities;
 using BookShop.Dal.SeedInterfaces;
 using BookShop.Dal.SeedService;
 using BookShop.Dal.Services;
+using BookShop.Dal.Users;
 using BookShop.Web.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,7 +51,13 @@ namespace BookShop.Web {
             services.AddScoped<IRoleSeedService, RoleSeedService>();
             services.AddScoped<IUserSeedService, UserSeedService>();
 
-            services.AddRazorPages();
+            services.AddAuthorization(options => {
+                options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole(Roles.Administrators));
+            });
+
+            services.AddRazorPages(options => {
+                options.Conventions.AuthorizeFolder("/Admin", "RequireAdministratorRole");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
