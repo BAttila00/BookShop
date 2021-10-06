@@ -30,6 +30,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        @if (User.IsInRole("Administrators")) {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Adminisztráció
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/ManageCategories">
+                                        Kategóriák szerkesztése
+                                    </a>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/ManageBooks">
+                                        Könyvek szerkesztése
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/ManageUsers">
+                                        Felhasználók menedzselése
+                                    </a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
