@@ -58,6 +58,13 @@ namespace BookShop.Web {
             services.AddRazorPages(options => {
                 options.Conventions.AuthorizeFolder("/Admin", "RequireAdministratorRole");
             });
+
+            //Ha olyan oldalra navigálnánk amihez nincs hozzáférésünk navigáljon át a loginra
+            services.ConfigureApplicationCookie(options => {
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
