@@ -7,5 +7,7 @@ namespace BookShop.Dal.Dto {
         public int Id { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
+        public string Order { get; set; }
+        public int? ParentCategoryId { get; set; }
     }
 }

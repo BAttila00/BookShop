@@ -4,3 +4,51 @@
 }
 
 <h1>Kategóriák kezelése</h1>
+
+<p>Az adminisztrátorok itt hozhatnak létre új kategóriát, vagy módosíthatják / törölhetik a meglévőket.</p>
+<div class="row">
+    <div class="col-md-3">
+        @await Component.InvokeAsync("CategoryList")
+        @*<vc:category-list></vc:category-list>*@
+    </div>
+    <div class="col-md-9">
+        @if (Model.CategoryId == 0) {@*ha a bal oldali kategóriák sávból választunk egy elemet akkor a CategoryId nem lesz 0, egyébként meg igen*@
+        <h2>Új kategória felvitele</h2>
+    }
+    else {
+        <h2>Kategória módosítása</h2>
+    }
+        <form method="post" class="form-horizontal" role="form">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @*@Html.AntiForgeryToken()*@
+            <input type="hidden" asp-for="SelectedCategory.Id" />
+            <div class="form-group">
+                <label asp-for="SelectedCategory.Name">Kategória neve</label>
+                <input class="form-control" asp-for="SelectedCategory.Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedCategory.ParentCategoryId">Szülő kategória</label>
+                <select class="form-control"
+                        asp-for="SelectedCategory.ParentCategoryId"
+                        asp-items="Model.AllCategories">
+                    @* Itt (fent) tesszük bele a select-be a modelben létrehozott SelectListItem cuccot *@
+                    <option value="">Nincs</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedCategory.Order">Sorrend</label>
+                <input class="form-control" asp-for="SelectedCategory.Order" />
+            </div>
+            <div class="d-flex justify-content-between">
+                <button asp-page-handler="AddOrUpdate" class="btn btn-primary">
+                    @(Model.SelectedCategory.Id == 0 ? "Létrehozás" : "Módosítás")
+                </button>
+                @if (Model.SelectedCategory.Id > 0) {
+                    <button asp-page-handler="Delete" class="btn btn-danger">
+                        Törlés
+                    </button>
+                }
+            </div>
+        </form>
+    </div>
+</div>

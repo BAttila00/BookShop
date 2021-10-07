@@ -7,9 +7,11 @@
 <div class="categories">
     @foreach (var category in Model) {
         <div class="category level-@category.Level">
-            <a asp-page="Index" asp-route-categoryId="@category.Id">        @*Ati: Beletesz egy linket, úgy h átirányítson az index-re és közben beleteszi az url-be a categoria ID-ját*@
-                                                                            @*A linkben a categoria neve jelenjen meg.*@
-                @category.Name                                              
+            <a asp-route-categoryId="@category.Id">
+                @*Ati: Beletesz egy linket, úgy h átirányítson az index-re és közben beleteszi az url-be a categoria ID-ját*@
+                @* ezentúl nem irányít át az indexre hanem maradunk az adott oldalon csak beletesz a paraméterek közé az url-be a kategoria id-t *@
+                @*A linkben a categoria neve jelenjen meg.*@
+                @category.Name
             </a>
         </div>
     }

@@ -21,7 +21,9 @@ namespace BookShop.Dal.Services {
                 Id = c.Id,
                 Level = c.Order.Split(".", StringSplitOptions.None).Count(),        //Ati: Ezt nem nagyon értem h mi ez a level, de sztem mind1 is.  //Hát az h melyik szinten van a kategória
                                                                                     //pl bogárnak a rovar a szülőkategóriája így az lesz magasabb szinten.
-                Name = c.DisplayName
+                Name = c.DisplayName,
+                Order = c.Order,
+                ParentCategoryId = c.ParentCategoryId
             }).ToListAsync();
             return allCategories;
         }
