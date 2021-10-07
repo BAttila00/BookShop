@@ -31,5 +31,25 @@ namespace BookShop.Web.Pages.Admin
             else
                 SelectedCategory = new CategoryHeader();
         }
+
+        //Ati: itt fontos a pontos elnevezés. Ennek kell megfeleljen: <button asp-page-handler="AddOrUpdate"
+        //A fölötte lévö cshtml fájlban van
+        public async Task<IActionResult> OnPostAddOrUpdateAsync() {
+            if (ModelState.IsValid) {
+                await categoryService.AddOrUpdateCategory(SelectedCategory);
+                return new RedirectToPageResult("/Admin/ManageCategories");
+                //Ati: ugyan az mint RedirectToPage("/Admin/ManageCategories");
+            }
+            // TODO: Hiba esetén a Model-t újra betölteni.
+            return Page();
+        }
+
+        //Ati: itt fontos a pontos elnevezés. Ennek kell megfeleljen: <button asp-page-handler="Delete"
+        //A fölötte lévö cshtml fájlban van
+        public async Task<IActionResult> OnPostDeleteAsync() {
+            await categoryService.DeleteCategory(SelectedCategory.Id);
+            return new RedirectToPageResult("/Admin/ManageCategories");
+            //Ati: ugyan az mint return RedirectToPage("/Admin/ManageCategories");
+        }
     }
 }
