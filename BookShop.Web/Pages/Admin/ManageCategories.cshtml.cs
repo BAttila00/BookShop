@@ -17,17 +17,16 @@ namespace BookShop.Web.Pages.Admin
         public int CategoryId { get; set; }
         [BindProperty()]
         public CategoryHeader SelectedCategory { get; set; }
+
+        private IEnumerable<CategoryHeader> categoryList;
+
         public ManageCategoriesModel(CategoryService categoryService) {
             this.categoryService = categoryService;
         }
         public async Task OnGetAsync() {
-            var allCategories = await categoryService.GetCategoryTreeAsync();
-            AllCategories = allCategories.Select(c => new SelectListItem {
-                Text = c.Name.PadLeft(c.Name.Length + (c.Order.Split('.').Length - 1) * 2, '\xA0'),
-                Value = c.Id.ToString()
-            });
+            await LoadModel();
             if (CategoryId != 0)
-                SelectedCategory = allCategories.Single(c => c.Id == CategoryId);
+                SelectedCategory = categoryList.Single(c => c.Id == CategoryId);
             else
                 SelectedCategory = new CategoryHeader();
         }
@@ -40,6 +39,9 @@ namespace BookShop.Web.Pages.Admin
                 return new RedirectToPageResult("/Admin/ManageCategories");
                 //Ati: ugyan az mint RedirectToPage("/Admin/ManageCategories");
             }
+
+            await LoadModel();
+
             // TODO: Hiba esetén a Model-t újra betölteni.
             return Page();
         }
@@ -50,6 +52,15 @@ namespace BookShop.Web.Pages.Admin
             await categoryService.DeleteCategory(SelectedCategory.Id);
             return new RedirectToPageResult("/Admin/ManageCategories");
             //Ati: ugyan az mint return RedirectToPage("/Admin/ManageCategories");
+        }
+
+        
+        private async Task LoadModel() {
+            categoryList = await categoryService.GetCategoryTreeAsync();
+            AllCategories = categoryList.Select(c => new SelectListItem {
+                Text = c.Name.PadLeft(c.Name.Length + (c.Order.Split('.').Length - 1) * 2, '\xA0'),
+                Value = c.Id.ToString()
+            });
         }
     }
 }
