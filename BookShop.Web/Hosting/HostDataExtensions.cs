@@ -26,7 +26,7 @@ namespace BookShop.Web.Hosting {
                 var context = serviceProvider.GetRequiredService<TContext>();           //ez itt még hibát dobott (mostmár nem fog), mert nincs beregisztrálva a GetRequiredService<BookShopDbContext> a service-k közé
                 context.Database.Migrate();                                             //Lefuttat egy létrehozott adatbázis migrációt (Ezek a Dal projekt Migrations mappájában vannak), ha az még nem futott le.
                 
-                var roleSeeder = serviceProvider.GetRequiredService<IRoleSeedService>();
+                var roleSeeder = serviceProvider.GetRequiredService<IRoleSeedService>();        //A startup-ban regisztráltuk be ezt az interface-t egy service-ként, ezzel a sorral: services.AddScoped<IRoleSeedService, RoleSeedService>();
                 await roleSeeder.SeedRoleAsync();
                 var userSeeder = serviceProvider.GetRequiredService<IUserSeedService>();
                 await userSeeder.SeedUserAsync();

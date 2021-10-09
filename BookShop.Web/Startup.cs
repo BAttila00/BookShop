@@ -48,7 +48,9 @@ namespace BookShop.Web {
 
             services.AddScoped<CategoryService>();
 
-            services.AddScoped<IRoleSeedService, RoleSeedService>();
+            services.AddScoped<IRoleSeedService, RoleSeedService>();        //Ati: beregisztrálunk egy osztályt service-nek
+                                                                            //Azért jó mert ha ezt megtesszük akkor gy tudjuk bárhol elkérni és használni: var roleSeeder = serviceProvider.GetRequiredService<IRoleSeedService>();
+                                                                            //Lásd HostDataExtensions.cs
             services.AddScoped<IUserSeedService, UserSeedService>();
 
             services.AddAuthorization(options => {
