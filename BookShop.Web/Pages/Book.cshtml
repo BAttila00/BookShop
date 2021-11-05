@@ -56,3 +56,17 @@
         <p class="py-2">@Model.Book.ShortDescription</p>
     </div>
 </div>
+
+<h3>Kommentek</h3>
+<div class="comments my-2">
+    @foreach (var comment in Model.Comments) {
+        <div class="comment d-flex p-3">
+            <div class="d-flex flex-column align-items-center flex-shrink-0 mr-3">
+                <i class="fa fa-user"></i>
+                <span class="text-muted">@(comment.CreatedDate.ToShortDateString())</span>
+                <span class="text-muted">@(comment.CreatedDate.ToShortTimeString())</span>
+            </div>
+            <div class="w-100">@comment.Text</div>
+        </div>
+    }
+</div>
