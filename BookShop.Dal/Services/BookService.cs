@@ -121,5 +121,31 @@ namespace BookShop.Dal.Services {
                 Results = books
             };
         }
+
+        public BookHeader GetBook(int id) {
+            var book = DbContext.Book
+                .Where(b => b.Id == id)
+                .Select(b => new BookHeader {             //itt hoz létre Book entitásból BookHeader típzusú "entitást".
+                    AuthorNames = b.BookAuthor.Select(ba => ba.Author.DisplayName).ToList(),
+                    AuthorIds = b.BookAuthor.Select(ba => ba.AuthorId).ToList(),
+                    AverageRating = b.Rating.Select(r => r.Value).Average(),
+                    CategoryId = b.CategoryId,
+                    DiscountedPrice = b.DiscountPrice,
+                    Id = b.Id,
+                    NumberOfComments = b.Comment.Count(),
+                    PageNumber = b.PageNumber,
+                    NumberOfRatings = b.Rating.Count(),
+                    Price = b.Price,
+                    PublisherName = b.Publisher.DisplayName,
+                    PublisherId = b.PublisherId,
+                    PublishYear = b.PublishYear,
+                    ShortDescription = b.ShortDescription,
+                    Subtitle = b.Subtitle,
+                    Title = b.Title
+                })
+                .SingleOrDefault();
+
+            return book;
+        }
     }
 }
