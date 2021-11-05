@@ -7,6 +7,7 @@ using BookShop.Dal;
 using BookShop.Dal.Dto;
 using BookShop.Dal.Entities;
 using BookShop.Dal.Services;
+using Ganss.XSS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -48,7 +49,7 @@ namespace BookShop.Web.Pages
                         BookId = NewComment.BookId,
                         UserId = NewComment.UserId,
                         Type = NewComment.Type,
-                        Text = NewComment.Text,
+                        Text = new HtmlSanitizer().Sanitize(NewComment.Text),
                         CreatedDate = DateTime.Now
                     });
                     _context.SaveChanges();
