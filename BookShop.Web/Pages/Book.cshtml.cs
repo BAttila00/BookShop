@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BookShop.Dal;
 using BookShop.Dal.Dto;
@@ -19,6 +20,10 @@ namespace BookShop.Web.Pages
         [BindProperty( SupportsGet = true)]
         public int Id { get; set; }
 
+        [BindProperty]
+        public Comment NewComment { get; set; }
+
+        [BindProperty]
         public BookHeader Book { get; set; }
         public List<Comment> Comments { get; set; }
 
@@ -31,7 +36,30 @@ namespace BookShop.Web.Pages
         public void OnGet()
         {
             Book = bookService.GetBook(Id);
-            Comments = _context.Comment.ToList();
+            Comments = _context.Comment.Where(c => c.BookId == Id).ToList();
+            NewComment = new Comment() { BookId = Id };
+        }
+
+        public IActionResult OnPostCreateComment() {
+            if (ModelState.IsValid) {
+                try {
+                    NewComment.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    _context.Comment.Add(new Comment {
+                        BookId = NewComment.BookId,
+                        UserId = NewComment.UserId,
+                        Type = NewComment.Type,
+                        Text = NewComment.Text,
+                        CreatedDate = DateTime.Now
+                    });
+                    _context.SaveChanges();
+                    return RedirectToPage("/Book", new { Id = NewComment.BookId });
+                }
+                catch (Exception ex) {
+                    // TODO: Log
+                    ModelState.AddModelError("", "A post létrehozása nem sikerült");
+                }
+            }
+            return Page();
         }
     }
 }
