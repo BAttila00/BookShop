@@ -78,15 +78,15 @@
 else {
     <div>Komment írásához be kell jelentkezned!</div>
 }
-<div class="comments my-2">
+<div >
     @foreach (var comment in Model.Comments) {
-        <div class="comment d-flex p-3">
+        <div class="d-flex my-4">
             <div class="d-flex flex-column align-items-center flex-shrink-0 mr-3">
                 <i class="fa fa-user"></i>
                 <span class="text-muted">@(comment.CreatedDate.ToShortDateString())</span>
                 <span class="text-muted">@(comment.CreatedDate.ToShortTimeString())</span>
             </div>
-            <div class="w-100">@comment.Text</div>
+            <div>@comment.Text</div>
         </div>
     }
 </div>
